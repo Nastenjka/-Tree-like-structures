@@ -1,0 +1,12 @@
+.idea/
+
+cmake-build-*/
+build/
+
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
