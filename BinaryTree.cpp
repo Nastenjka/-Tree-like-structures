@@ -34,7 +34,7 @@ Node* BinarySearchTree::eraseNode(Node* node, const Player& player) {
         // 1. Немає нащадків
         if (node->left == nullptr && node->right == nullptr) {
             delete node;
-            tree_size--; // <-- Додаємо зменшення розміру
+            tree_size--;
             return nullptr;
         }
         // 2. Лише правий нащадок
@@ -42,7 +42,7 @@ Node* BinarySearchTree::eraseNode(Node* node, const Player& player) {
             Node* temp = node->right;
             temp->parent = node->parent;
             delete node;
-            tree_size--; // <-- Додаємо зменшення розміру
+            tree_size--;
             return temp;
         }
         // 2. Лише лівий нащадок
@@ -50,7 +50,7 @@ Node* BinarySearchTree::eraseNode(Node* node, const Player& player) {
             Node* temp = node->left;
             temp->parent = node->parent;
             delete node;
-            tree_size--; // <-- Додаємо зменшення розміру
+            tree_size--;
             return temp;
         }
         // 3. Два нащадки
@@ -60,10 +60,6 @@ Node* BinarySearchTree::eraseNode(Node* node, const Player& player) {
                 successor = successor->left;
 
             node->data = successor->data;
-
-            // ЗВЕРНИ УВАГУ: Тут tree_size-- писати НЕ ПОТРІБНО.
-            // Рекурсивний виклик eraseNode піде шукати successor->data,
-            // потрапить у випадок 1 або 2 вище, і там розмір успішно зменшиться!
             node->right = eraseNode(node->right, successor->data);
         }
     }
@@ -104,9 +100,63 @@ void BinarySearchTree::print() {
     }
 
     std::cout << "--- Player's list ---" << "\n";
-    // Запускаємо рекурсію починаючи з кореня
     printNode(root);
     std::cout << "----------------------" << "\n";
 }
 
 
+int BinarySearchTree::heightNode(Node* node) {
+    if (node == nullptr) return 0;
+
+    int left_height = heightNode(node->left);
+    int right_height = heightNode(node->right);
+
+    return std::max(left_height, right_height) + 1;
+}
+
+int BinarySearchTree::height() {
+    return heightNode(root);
+}
+
+int BinarySearchTree::findInRangeNode(Node* node, const Player& min_object, const Player& max_object) {
+    if (node == nullptr) {
+        return 0;
+    }
+
+    int count = 0;
+
+    if (node->data >= min_object) {
+        count += findInRangeNode(node->left, min_object, max_object);
+    }
+
+    if (node->data >= min_object && node->data <= max_object) {
+        std::cout << "Nickname: " << node->data.nickname
+                  << " | XP: " << node->data.XP << "\n";
+        count++;
+    }
+
+    if (node->data <= max_object) {
+        count += findInRangeNode(node->right, min_object, max_object);
+    }
+
+    return count;
+}
+
+int BinarySearchTree::findInRange(const Player& min_object, const Player& max_object) {
+    if (root == nullptr) {
+        std::cout << "The tree is empty\n";
+        return 0;
+    }
+
+    std::cout << "--- Players from range ---" << "\n";
+    int count = findInRangeNode(root, min_object, max_object);
+
+    if (count == 0) {
+        std::cout << "There is no players in such range :(\n";
+    } else {
+        std::cout << "Total number: " << count << " players\n";
+    }
+    std::cout << "-----------------------------------" << "\n";
+
+    return count;
+}

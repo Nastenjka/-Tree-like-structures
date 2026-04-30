@@ -30,7 +30,9 @@ struct BinarySearchTree {
     int size();
     void printNode(Node* node);
     void print();
+    int heightNode(Node* node);
     int height();
+    int findInRangeNode(Node* node, const Player& min_object, const Player& max_object);
     int findInRange(const Player& min_object, const Player& max_object);
 };
 
