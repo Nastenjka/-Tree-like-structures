@@ -15,7 +15,6 @@ struct BinarySearchTree {
     Node* root;
     int tree_size;
 
-
     /*insert(object) – додати новий елемент в дерево (без повторень)
 • find(object) – перевірити наявність елемента в дереві
 • erase(object) – видалити елемент з дерева
@@ -26,8 +25,10 @@ struct BinarySearchTree {
 • findInRange(minObject, maxObject) – знайти всі елементи в дереві на*/
     Node* insertNode(Node* node, const Player& player, Node* parent);
     void insert(const Player& player);
+    Node* eraseNode(Node* node, const Player& player);
     void erase(const Player& player);
     int size();
+    void printNode(Node* node);
     void print();
     int height();
     int findInRange(const Player& min_object, const Player& max_object);
