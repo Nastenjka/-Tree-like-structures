@@ -1,5 +1,5 @@
-#ifndef LAB4_PLAYER_H
-#define LAB4_PLAYER_H
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include <iostream>
 
@@ -11,6 +11,16 @@ struct Player {
     int wins;
     int total_games;
     int years_playing;
+
+    //Compare 2 players by game experience
+    bool operator<(const Player& other) const;
+    bool operator>(const Player& other) const;
+    bool operator==(const Player& other) const;
+    bool operator!=(const Player& other) const;
+    bool operator<=(const Player& other) const;
+    bool operator>=(const Player& other) const;
 };
 
-#endif //LAB4_PLAYER_H
+
+
+#endif //PLAYER_H

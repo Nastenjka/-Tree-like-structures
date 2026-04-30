@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(Lab4
         main.cpp
         Player.h
-        Player.cpp)
+        Player.cpp
+        BinaryTree.h
+        BinaryTree.cpp)
