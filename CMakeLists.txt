@@ -8,4 +8,5 @@ add_executable(Lab4
         Player.h
         Player.cpp
         BinaryTree.h
-        BinaryTree.cpp)
+        BinaryTree.cpp
+)

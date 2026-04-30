@@ -12,8 +12,8 @@ struct Node {
 };
 
 struct BinarySearchTree {
-    Node* root;
-    int tree_size;
+    Node* root = nullptr;
+    int tree_size = 0;
 
     /*insert(object) – додати новий елемент в дерево (без повторень)
 • find(object) – перевірити наявність елемента в дереві
@@ -25,6 +25,8 @@ struct BinarySearchTree {
 • findInRange(minObject, maxObject) – знайти всі елементи в дереві на*/
     Node* insertNode(Node* node, const Player& player, Node* parent);
     void insert(const Player& player);
+    bool findNode(Node* node, const Player& player);
+    bool find(const Player& player);
     Node* eraseNode(Node* node, const Player& player);
     void erase(const Player& player);
     int size();

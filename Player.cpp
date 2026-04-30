@@ -20,13 +20,13 @@ bool Player::operator==(const Player& other) const {
 }
 
 bool Player::operator!=(const Player& other) const {
-    return this->XP != other.XP;
+    return !(*this == other);
 }
 bool Player::operator<=(const Player& other) const {
-    return this->XP <= other.XP;
+    return !(*this > other);
 }
 bool Player::operator>=(const Player& other) const {
-    return this->XP >= other.XP;
+    return !(*this < other);
 }
 
 

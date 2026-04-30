@@ -15,8 +15,33 @@ Node* BinarySearchTree::insertNode(Node* node, const Player& player, Node* paren
 }
 
 void BinarySearchTree::insert(const Player& player) {
+    if (find(player)) {
+        return;
+    }
+
     root = insertNode(root, player, nullptr);
     tree_size++;
+}
+
+bool BinarySearchTree::findNode(Node* node, const Player& player) {
+    if (node == nullptr) {
+        return false;
+    }
+
+    if (node->data == player) {
+        return true;
+    }
+
+    if (player < node->data) {
+        return findNode(node->left, player);
+    }
+    else {
+        return findNode(node->right, player);
+    }
+}
+
+bool BinarySearchTree::find(const Player& player) {
+    return findNode(root, player);
 }
 
 Node* BinarySearchTree::eraseNode(Node* node, const Player& player) {
@@ -130,8 +155,6 @@ int BinarySearchTree::findInRangeNode(Node* node, const Player& min_object, cons
     }
 
     if (node->data >= min_object && node->data <= max_object) {
-        std::cout << "Nickname: " << node->data.nickname
-                  << " | XP: " << node->data.XP << "\n";
         count++;
     }
 
@@ -143,20 +166,7 @@ int BinarySearchTree::findInRangeNode(Node* node, const Player& min_object, cons
 }
 
 int BinarySearchTree::findInRange(const Player& min_object, const Player& max_object) {
-    if (root == nullptr) {
-        std::cout << "The tree is empty\n";
-        return 0;
-    }
-
-    std::cout << "--- Players from range ---" << "\n";
+    if (root == nullptr) return 0;
     int count = findInRangeNode(root, min_object, max_object);
-
-    if (count == 0) {
-        std::cout << "There is no players in such range :(\n";
-    } else {
-        std::cout << "Total number: " << count << " players\n";
-    }
-    std::cout << "-----------------------------------" << "\n";
-
     return count;
 }
